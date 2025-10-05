@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Paratopic Technologies - Success Metrics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #0b0f19;
+      color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 40px 0 20px;
+      color: #00eaff;
+      text-shadow: 0 0 10px #00eaff;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    canvas {
+      background: #161b29;
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .counter-container {
+      text-align: center;
+      margin: 50px 0;
+    }
+
+    .counter {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #00eaff;
+      text-shadow: 0 0 15px #00eaff;
+    }
+  </style>
+</head>
+<body>
+  <h2>Paratopic Technologies Success Metrics</h2>
+
+  <!-- Animated Counters -->
+  <div class="counter-container">
+    <div class="counter" data-target="1478">0</div>
+    <p>High-Tech Projects Completed</p>
+    <div class="counter" data-target="1000000">0</div>
+    <p>Technical Supports Delivered</p>
+  </div>
+
+  <!-- Dashboard Charts -->
+  <div class="dashboard">
+    <canvas id="timelineChart"></canvas>
+    <canvas id="ecosystemChart"></canvas>
+    <canvas id="humanCapitalChart"></canvas>
+    <canvas id="impactGauge"></canvas>
+  </div>
+
+  <script>
+    // Animated Counters
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / 200; // speed
+
+        if(count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 15);
+        } else {
+          counter.innerText = target.toLocaleString();
+        }
+      };
+      updateCount();
+    });
+
+    // Timeline Line Chart
+    new Chart(document.getElementById('timelineChart'), {
+      type: 'line',
+      data: {
+        labels: ["2015","2017","2020","2025"],
+        datasets: [{
+          label: "Milestones",
+          data: [1, 25, 400, 1478],
+          borderColor: "#00eaff",
+          backgroundColor: "rgba(0, 234, 255, 0.2)",
+          fill: true,
+          tension: 0.4,
+          pointRadius: 6,
+          pointBackgroundColor: "#00ff99"
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: "#fff" } } },
+        scales: {
+          x: { ticks: { color: "#fff" } },
+          y: { ticks: { color: "#fff" } }
+        }
+      }
+    });
+
+    // Ecosystem Donut Chart
+    new Chart(document.getElementById('ecosystemChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ["Startups Powered", "Hardware Suppliers", "Enterprises Transformed", "Affiliate Trades"],
+        datasets: [{
+          data: [25, 33, 18, 46],
+          backgroundColor: ["#00eaff","#ff6b6b","#feca57","#1dd1a1"]
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: "#fff" } } }
+      }
+    });
+
+    // Human Capital Bar Chart
+    new Chart(document.getElementById('humanCapitalChart'), {
+      type: 'bar',
+      data: {
+        labels: ["Elites Recruited", "Engineering Teams", "High-Tech Solutions"],
+        datasets: [{
+          label: "Human Capital",
+          data: [425, 40, 30],
+          backgroundColor: ["#00eaff","#ff9ff3","#54a0ff"]
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: "#fff" } } },
+        scales: {
+          x: { ticks: { color: "#fff" } },
+          y: { ticks: { color: "#fff" } }
+        }
+      }
+    });
+
+    // Impact Gauge (using a polar area chart as a "gauge" alternative)
+    new Chart(document.getElementById('impactGauge'), {
+      type: 'polarArea',
+      data: {
+        labels: ["Criminal Threats Eliminated", "Enterprises Transformed"],
+        datasets: [{
+          data: [5, 18],
+          backgroundColor: ["#ff4757","#1dd1a1"]
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: "#fff" } } },
+        scales: { r: { ticks: { color: "#fff" } } }
+      }
+    });
+  </script>
+</body>
+</html>
